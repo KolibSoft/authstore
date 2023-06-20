@@ -7,9 +7,9 @@
   </PropertyGroup>
 
   <PropertyGroup>
-    <PackageId>KolibSoft.AuthStore</PackageId>
-    <AssemblyName>KolibSoft.AuthStore</AssemblyName>
-    <PackageVersion>3.0.0</PackageVersion>
+    <PackageId>KolibSoft.AuthStore.Client</PackageId>
+    <AssemblyName>KolibSoft.AuthStore.Client</AssemblyName>
+    <PackageVersion>3.0.0-a</PackageVersion>
     <Authors>Kolib Software</Authors>
     <Copyright>Kolib Software</Copyright>
     <RepositoryUrl>https://github.com/KolibSoft/authstore</RepositoryUrl>
@@ -22,7 +22,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="KolibSoft.Catalogue" Version="3.1.1" />
+    <ProjectReference Include="..\Core\Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="KolibSoft.Catalogue.Client" Version="2.0.4" />
   </ItemGroup>
 
 </Project>

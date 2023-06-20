@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>KolibSoft.AuthStore.Server</PackageId>
+    <AssemblyName>KolibSoft.AuthStore.Server</AssemblyName>
+    <PackageVersion>3.0.0-a</PackageVersion>
+    <Authors>Kolib Software</Authors>
+    <Copyright>Kolib Software</Copyright>
+    <RepositoryUrl>https://github.com/KolibSoft/authstore</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="KolibSoft.Catalogue.Server" Version="2.0.6" />
+    <PackageReference Include="KolibSoft.Jwt.Server" Version="2.0.0" />
+  </ItemGroup>
+
+</Project>
