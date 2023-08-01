@@ -1,9 +1,5 @@
-import { AuthClient } from "./auth_client.js";
-import { AuthService } from "./auth_service.js";
-import { CatalogueModule } from "./catalogue_module.js";
+import { Catalogue } from "./modules/catalogue.js";
 
 export {
-    CatalogueModule,
-    AuthService,
-    AuthService
+    Catalogue
 }
