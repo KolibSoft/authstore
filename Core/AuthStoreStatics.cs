@@ -14,4 +14,7 @@ public static class AuthStoreStatics
     public const string Access = "access";
     public const string Refresh = "refresh";
 
+    public const string Accessor = "Accessor";
+    public const string Refresher = "Refresher";
+
 }
