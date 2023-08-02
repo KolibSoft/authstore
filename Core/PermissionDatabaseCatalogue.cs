@@ -11,35 +11,32 @@ public class PermissionDatabaseCatalogue : DatabaseCatalogue<PermissionModel, Ca
 
     protected override bool ValidateInsert(PermissionModel item)
     {
-        var valid = true;
         if (DbSet.Any(x => x.Code == item.Code))
         {
             Errors?.Add(AuthStoreStatics.RepeatedCode);
-            valid = false;
+            return false;
         }
-        return valid;
+        return true;
     }
 
     protected override bool ValidateUpdate(PermissionModel item)
     {
-        var valid = true;
         if (DbSet.Any(x => x.Code == item.Code && x.Id != item.Id))
         {
             Errors?.Add(AuthStoreStatics.RepeatedCode);
-            valid = false;
+            return false;
         }
-        return valid;
+        return true;
     }
 
     protected override bool ValidateDelete(PermissionModel item)
     {
-        var valid = true;
         if (CredentialPermissions.Any(x => x.PermissionId == item.Id))
         {
             Errors?.Add(AuthStoreStatics.UsedItem);
-            valid = false;
+            return false;
         }
-        return valid;
+        return true;
     }
 
     public PermissionDatabaseCatalogue(DbContext dbContext) : base(dbContext)

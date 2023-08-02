@@ -16,6 +16,9 @@ public static class PolicyUtils
 
         options.AddPolicy(AuthStoreStatics.PermissionReader, config => config.RequireClaim(AuthStoreStatics.Permissions, AuthStoreStatics.PermissionReader, AuthStoreStatics.PermissionManager));
         options.AddPolicy(AuthStoreStatics.PermissionManager, config => config.RequireClaim(AuthStoreStatics.Permissions, AuthStoreStatics.PermissionManager));
+
+        options.AddPolicy(AuthStoreStatics.CredentialPermissionReader, config => config.RequireClaim(AuthStoreStatics.Permissions, AuthStoreStatics.CredentialPermissionReader, AuthStoreStatics.CredentialPermissionManager));
+        options.AddPolicy(AuthStoreStatics.CredentialPermissionManager, config => config.RequireClaim(AuthStoreStatics.Permissions, AuthStoreStatics.CredentialPermissionManager));
     }
 
 }

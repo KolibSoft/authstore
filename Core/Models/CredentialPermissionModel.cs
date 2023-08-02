@@ -14,11 +14,23 @@ public class CredentialPermissionModel : IItem, IValidatable, IUpdatable<Credent
 
     public bool Validate(ICollection<string>? errors = default)
     {
-        var invalid = false;
-        if (invalid = (Id == Guid.Empty)) errors?.Add(CatalogueStatics.InvalidId);
-        if (invalid = (CredentialId == Guid.Empty)) errors?.Add(AuthStoreStatics.InvalidCredential);
-        if (invalid = (PermissionId == Guid.Empty)) errors?.Add(AuthStoreStatics.InvalidPermission);
-        return !invalid;
+        var valid = true;
+        if (Id == Guid.Empty)
+        {
+            errors?.Add(CatalogueStatics.InvalidId);
+            valid = false;
+        }
+        if (CredentialId == Guid.Empty)
+        {
+            errors?.Add(AuthStoreStatics.InvalidCredential);
+            valid = false;
+        }
+        if (PermissionId == Guid.Empty)
+        {
+            errors?.Add(AuthStoreStatics.InvalidPermission);
+            valid = false;
+        }
+        return valid;
     }
 
     public void Update(CredentialPermissionModel newState)

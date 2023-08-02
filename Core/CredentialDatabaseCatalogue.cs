@@ -11,35 +11,32 @@ public class CredentialDatabaseCatalogue : DatabaseCatalogue<CredentialModel, Ca
 
     protected override bool ValidateInsert(CredentialModel item)
     {
-        var valid = true;
         if (DbSet.Any(x => x.Identity == item.Identity))
         {
             Errors.Add(AuthStoreStatics.RepeatedIdentity);
-            valid = false;
+            return false;
         }
-        return valid;
+        return true;
     }
 
     protected override bool ValidateUpdate(CredentialModel item)
     {
-        var valid = true;
         if (DbSet.Any(x => x.Identity == item.Identity && x.Id != item.Id))
         {
             Errors.Add(AuthStoreStatics.RepeatedIdentity);
-            valid = false;
+            return false;
         }
-        return valid;
+        return true;
     }
 
     protected override bool ValidateDelete(CredentialModel item)
     {
-        var valid = true;
         if (CredentialPermissions.Any(x => x.CredentialId == item.Id))
         {
             Errors.Add(AuthStoreStatics.UsedItem);
-            valid = false;
+            return false;
         }
-        return valid;
+        return true;
     }
 
     public override async Task<Result<Page<CredentialModel>?>> PageAsync(CatalogueFilters? filters = null)

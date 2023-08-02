@@ -35,4 +35,10 @@ public static class AuthStoreStatics
     public const string PermissionReader = "Permission-Reader";
     public const string PermissionManager = "Permission-Manager";
 
+    public const string ReadCredentialPermission = "READ_CREDENTIAL_PERMISSION";
+    public const string ManageCredentialPermission = "MANAGE_CREDENTIAL_PERMISSION";
+
+    public const string CredentialPermissionReader = "Credential-Permission-Reader";
+    public const string CredentialPermissionManager = "Credential-Permission-Manager";
+
 }

@@ -44,6 +44,18 @@ public static class DbContextUtils
                 Code = AuthStoreStatics.PermissionManager,
                 Active = true,
                 UpdatedAt = DateTime.UtcNow
+            },
+            new PermissionModel() {
+                Id = Guid.NewGuid(),
+                Code = AuthStoreStatics.CredentialPermissionReader,
+                Active = true,
+                UpdatedAt = DateTime.UtcNow
+            },
+            new PermissionModel() {
+                Id = Guid.NewGuid(),
+                Code = AuthStoreStatics.CredentialPermissionManager,
+                Active = true,
+                UpdatedAt = DateTime.UtcNow
             }
         };
         permissions.AddRange(authStorePermissions);

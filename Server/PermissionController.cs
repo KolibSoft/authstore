@@ -1,6 +1,5 @@
 using KolibSoft.AuthStore.Core;
 using KolibSoft.AuthStore.Core.Models;
-using KolibSoft.AuthStore.Core.Utils;
 using KolibSoft.Catalogue.Core;
 using KolibSoft.Catalogue.Core.Abstractions;
 using KolibSoft.Catalogue.Server;
