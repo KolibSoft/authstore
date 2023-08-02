@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <PackageReference Include="KolibSoft.Catalogue.Core" Version="3.0.0-b" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.9" />
   </ItemGroup>
 
 </Project>
