@@ -14,3 +14,16 @@ public class TestCredentialController : CredentialController
 {
     public TestCredentialController(AuthStoreContext context) : base(new CredentialDatabaseCatalogue(context)) { }
 }
+
+[Route("permission")]
+public class TestPermissionController : PermissionController
+{
+    public TestPermissionController(AuthStoreContext context) : base(new PermissionDatabaseCatalogue(context)) { }
+}
+
+[Route("credential-permission")]
+[Route("permission-credential")]
+public class TestCredentialPermissionController : CredentialPermissionController
+{
+    public TestCredentialPermissionController(AuthStoreContext context) : base(new CredentialPermissionDatabaseCatalogue(context)) { }
+}
