@@ -4,11 +4,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KolibSoft.AuthStore.Core;
 
-public class CredentialPermissionDatabaseCatalogue : DatabaseCatalogue<CredentialPermissionModel, CatalogueFilters>
+public class CredentialPermissionDatabaseCatalogue : DatabaseCatalogue<CredentialPermissionModel, CredentialPermissionFilters>
 {
 
     public DbSet<CredentialModel> Credentials { get; }
     public DbSet<PermissionModel> Permissions { get; }
+
+    protected override IQueryable<CredentialPermissionModel> QueryItems(IQueryable<CredentialPermissionModel> items, CredentialPermissionFilters filters)
+    {
+        if (filters.Clean ?? true) items = items.Where(x => x.Active);
+        if (filters.CredentialId != null) items = items.Where(x => x.CredentialId == filters.CredentialId);
+        if (filters.PermissionId != null) items = items.Where(x => x.PermissionId == filters.PermissionId);
+        return items;
+    }
 
     protected override bool ValidateInsert(CredentialPermissionModel item)
     {
