@@ -24,6 +24,7 @@ public class AuthController : ControllerBase, IAuthConnector
     }
 
     [HttpGet("{id}")]
+    [Authorize(AuthStoreStatics.Refresher)]
     public virtual async Task<Result<AuthModel?>> RefreshAsync([FromRoute] Guid id, [FromHeader(Name = "Authorization")] string refreshToken)
     {
         refreshToken = refreshToken.Trim()[7..];

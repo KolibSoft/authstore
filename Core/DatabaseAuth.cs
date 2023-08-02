@@ -23,8 +23,8 @@ public class DatabaseAuth : IAuthConnector
 
         var accessClaims = new List<Claim>();
         accessClaims.Add(new Claim(AuthStoreStatics.Id, credential.Id.ToString()));
-        accessClaims.Add(new Claim(AuthStoreStatics.Access, true.ToString(), ClaimValueTypes.Boolean));
-        accessClaims.Add(new Claim(AuthStoreStatics.Refresh, false.ToString(), ClaimValueTypes.Boolean));
+        accessClaims.Add(new Claim(AuthStoreStatics.Access, AuthStoreStatics.Permitted));
+        accessClaims.Add(new Claim(AuthStoreStatics.Refresh, AuthStoreStatics.Denied));
         accessClaims.AddRange(permissions.Select(x => new Claim(AuthStoreStatics.Permissions, x.Code)));
         var accessToken = TokenGenerator.Generate(accessClaims, TimeSpan.FromMinutes(20));
 
@@ -32,8 +32,8 @@ public class DatabaseAuth : IAuthConnector
         {
             var refreshClaims = new List<Claim>();
             refreshClaims.Add(new Claim(AuthStoreStatics.Id, credential.Id.ToString()));
-            refreshClaims.Add(new Claim(AuthStoreStatics.Access, false.ToString(), ClaimValueTypes.Boolean));
-            refreshClaims.Add(new Claim(AuthStoreStatics.Refresh, true.ToString(), ClaimValueTypes.Boolean));
+            refreshClaims.Add(new Claim(AuthStoreStatics.Access, AuthStoreStatics.Denied));
+            refreshClaims.Add(new Claim(AuthStoreStatics.Refresh, AuthStoreStatics.Permitted));
             refreshToken = TokenGenerator.Generate(refreshClaims, TimeSpan.FromDays(1));
         }
 

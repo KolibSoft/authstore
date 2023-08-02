@@ -17,4 +17,7 @@ public static class AuthStoreStatics
     public const string Accessor = "Accessor";
     public const string Refresher = "Refresher";
 
+    public const string Permitted = "PERMITTED";
+    public const string Denied = "DENIED";
+
 }
