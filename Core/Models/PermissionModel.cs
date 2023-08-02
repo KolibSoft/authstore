@@ -14,10 +14,18 @@ public class PermissionModel : IItem, IValidatable, IUpdatable<PermissionModel>
     public bool Validate(ICollection<string>? errors = default)
     {
         Code = Code.Trim();
-        var invalid = false;
-        if (invalid = (Id == Guid.Empty)) errors?.Add(CatalogueStatics.InvalidId);
-        if (invalid = (Code == string.Empty || Code.Length < 8 || Code.Length > 32)) errors?.Add(AuthStoreStatics.InvalidCode);
-        return !invalid;
+        var valid = true;
+        if (Id == Guid.Empty)
+        {
+            errors?.Add(CatalogueStatics.InvalidId);
+            valid = false;
+        }
+        if (Code == string.Empty || Code.Length < 8 || Code.Length > 32)
+        {
+            errors?.Add(AuthStoreStatics.InvalidCode);
+            valid = false;
+        }
+        return valid;
     }
 
     public void Update(PermissionModel newState)
