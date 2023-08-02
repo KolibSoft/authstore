@@ -7,11 +7,11 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace KolibSoft.AuthStore.Server;
 
-public class PermissionController : CatalogueController<PermissionModel, CatalogueFilters>
+public class PermissionController : CatalogueController<PermissionModel, PermissionFilters>
 {
 
     [Authorize(AuthStoreStatics.PermissionReader)]
-    public override Task<Result<Page<PermissionModel>?>> PageAsync(CatalogueFilters? filters = null)
+    public override Task<Result<Page<PermissionModel>?>> PageAsync(PermissionFilters? filters = null)
     {
         return base.PageAsync(filters);
     }
@@ -40,6 +40,6 @@ public class PermissionController : CatalogueController<PermissionModel, Catalog
         return base.DeleteAsync(id);
     }
 
-    public PermissionController(ICatalogueConnector<PermissionModel, CatalogueFilters> catalogueConnector) : base(catalogueConnector) { }
+    public PermissionController(ICatalogueConnector<PermissionModel, PermissionFilters> catalogueConnector) : base(catalogueConnector) { }
 
 }
