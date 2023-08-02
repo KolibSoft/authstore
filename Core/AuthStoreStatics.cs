@@ -11,8 +11,7 @@ public static class AuthStoreStatics
 
     public const string Id = "id";
     public const string Permissions = "permissions";
-    public const string Actor = "ACTOR";
-    public const string Access = "ACCESS";
-    public const string Refresh = "REFRESH";
+    public const string Access = "access";
+    public const string Refresh = "refresh";
 
 }

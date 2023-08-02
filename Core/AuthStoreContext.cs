@@ -58,24 +58,7 @@ public class AuthStoreContext : DbContext
         };
         Credentials.Add(rootCredential);
         var permissions = new PermissionModel[] {
-            new() {
-                Id = Guid.NewGuid(),
-                Code = AuthStoreStatics.Actor,
-                Active = true,
-                UpdatedAt = DateTime.UtcNow
-            },
-            new() {
-                Id = Guid.NewGuid(),
-                Code = AuthStoreStatics.Access,
-                Active = true,
-                UpdatedAt = DateTime.UtcNow
-            },
-            new() {
-                Id = Guid.NewGuid(),
-                Code = AuthStoreStatics.Refresh,
-                Active = true,
-                UpdatedAt = DateTime.UtcNow
-            }
+            
         };
         Permissions.AddRange(permissions);
         var credentialPermissions = permissions.Select(x => new CredentialPermissionModel

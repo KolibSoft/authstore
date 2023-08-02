@@ -3,14 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KolibSoft.AuthStore.Server.Example;
 
-[Route("[controller]")]
-public class TestController : ControllerBase
+[Route("auth")]
+public class TestAuthController : AuthController
 {
-
-    [HttpGet]
-    public IActionResult Test([FromServices] AuthStoreContext context)
-    {
-        return Ok();
-    }
-
+    public TestAuthController(AuthStoreContext context, TokenGenerator generator) : base(new DatabaseAuth(context, generator)) { }
 }

@@ -1,8 +1,6 @@
+using System.Text;
 using KolibSoft.AuthStore.Core;
-using KolibSoft.Jwt.Server.Services;
-using KolibSoft.Jwt.Server.Utils;
-using Microsoft.AspNetCore.Cors;
-using Microsoft.AspNetCore.Mvc;
+using KolibSoft.AuthStore.Core.Utils;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,11 +11,11 @@ builder.Services.AddDbContext<AuthStoreContext>(options =>
     var connstring = "server=localhost;user=root;password=root;database=authstore;";
     options.UseMySql(connstring, ServerVersion.AutoDetect(connstring));
 });
-builder.Services.AddJwt();
 builder.Services.AddAuthorization(options =>
 {
 
 });
+builder.Services.AddSingleton(new TokenGenerator(Encoding.UTF8.GetBytes("SECRET".GetHashString())));
 
 var app = builder.Build();
 app.UseCors();
