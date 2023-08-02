@@ -1,4 +1,5 @@
 using KolibSoft.AuthStore.Core.Models;
+using KolibSoft.AuthStore.Core.Utils;
 using Microsoft.EntityFrameworkCore;
 
 namespace KolibSoft.AuthStore.Core;
@@ -47,7 +48,46 @@ public class AuthStoreContext : DbContext
 
     protected virtual void OnCreate()
     {
-
+        var rootCredential = new CredentialModel
+        {
+            Id = Guid.NewGuid(),
+            Identity = "ROOT",
+            Key = "ROOT".GetHashString(),
+            Active = true,
+            UpdatedAt = DateTime.UtcNow
+        };
+        Credentials.Add(rootCredential);
+        var permissions = new PermissionModel[] {
+            new() {
+                Id = Guid.NewGuid(),
+                Code = AuthStoreStatics.Actor,
+                Active = true,
+                UpdatedAt = DateTime.UtcNow
+            },
+            new() {
+                Id = Guid.NewGuid(),
+                Code = AuthStoreStatics.Access,
+                Active = true,
+                UpdatedAt = DateTime.UtcNow
+            },
+            new() {
+                Id = Guid.NewGuid(),
+                Code = AuthStoreStatics.Refresh,
+                Active = true,
+                UpdatedAt = DateTime.UtcNow
+            }
+        };
+        Permissions.AddRange(permissions);
+        var credentialPermissions = permissions.Select(x => new CredentialPermissionModel
+        {
+            Id = Guid.NewGuid(),
+            CredentialId = rootCredential.Id,
+            PermissionId = x.Id,
+            Active = true,
+            UpdatedAt = DateTime.UtcNow
+        }).ToArray();
+        CredentialPermissions.AddRange(credentialPermissions);
+        SaveChanges();
     }
 
     public AuthStoreContext() : base()

@@ -24,7 +24,7 @@ public class AuthService : IAuthConnector
     public virtual async Task<Result<AuthModel?>> RefreshAsync(Guid id, string refreshToken)
     {
         var uri = $"{Uri}/{id}";
-        var request = new HttpRequestMessage(HttpMethod.Put, uri);
+        var request = new HttpRequestMessage(HttpMethod.Get, uri);
         request.Headers.Authorization = new AuthenticationHeaderValue("bearer", refreshToken);
         var response = await HttpClient.SendAsync(request);
         var result = await response.HandleResult<AuthModel?>();

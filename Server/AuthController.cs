@@ -2,6 +2,7 @@ using KolibSoft.AuthStore.Core;
 using KolibSoft.AuthStore.Core.Abstractions;
 using KolibSoft.AuthStore.Core.Utils;
 using KolibSoft.Catalogue.Core;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,7 +23,7 @@ public class AuthController : ControllerBase, IAuthConnector
         return result;
     }
 
-    [HttpPut("{id}")]
+    [HttpGet("{id}")]
     public virtual async Task<Result<AuthModel?>> RefreshAsync([FromRoute] Guid id, [FromHeader(Name = "Authorization")] string refreshToken)
     {
         refreshToken = refreshToken.Trim()[7..];
