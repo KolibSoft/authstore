@@ -31,4 +31,13 @@ public class CredentialModel : IItem, IValidatable, IUpdatable<CredentialModel>
         UpdatedAt = newState.UpdatedAt;
     }
 
+    public CredentialModel ToPublic() => new()
+    {
+        Id = Id,
+        Identity = Identity,
+        Key = "********",
+        Active = Active,
+        UpdatedAt = UpdatedAt
+    };
+
 }
