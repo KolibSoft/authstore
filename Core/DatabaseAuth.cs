@@ -21,19 +21,23 @@ public class DatabaseAuth : IAuthConnector
         var permissionIds = CredentialPermissions.Where(x => x.CredentialId == credential.Id).Select(x => x.PermissionId).ToArray();
         var permissions = Permissions.Where(x => permissionIds.Contains(x.Id)).ToArray();
 
-        var accessClaims = new List<Claim>();
-        accessClaims.Add(new Claim(AuthStoreStatics.Id, credential.Id.ToString()));
-        accessClaims.Add(new Claim(AuthStoreStatics.Access, AuthStoreStatics.Permitted));
-        accessClaims.Add(new Claim(AuthStoreStatics.Refresh, AuthStoreStatics.Denied));
+        var accessClaims = new List<Claim>
+        {
+            new Claim(AuthStoreStatics.Id, credential.Id.ToString()),
+            new Claim(AuthStoreStatics.Access, AuthStoreStatics.Permitted),
+            new Claim(AuthStoreStatics.Refresh, AuthStoreStatics.Denied)
+        };
         accessClaims.AddRange(permissions.Select(x => new Claim(AuthStoreStatics.Permissions, x.Code)));
         var accessToken = TokenGenerator.Generate(accessClaims, TimeSpan.FromMinutes(20));
 
         if (refreshToken == null)
         {
-            var refreshClaims = new List<Claim>();
-            refreshClaims.Add(new Claim(AuthStoreStatics.Id, credential.Id.ToString()));
-            refreshClaims.Add(new Claim(AuthStoreStatics.Access, AuthStoreStatics.Denied));
-            refreshClaims.Add(new Claim(AuthStoreStatics.Refresh, AuthStoreStatics.Permitted));
+            var refreshClaims = new List<Claim>
+            {
+                new Claim(AuthStoreStatics.Id, credential.Id.ToString()),
+                new Claim(AuthStoreStatics.Access, AuthStoreStatics.Denied),
+                new Claim(AuthStoreStatics.Refresh, AuthStoreStatics.Permitted)
+            };
             refreshToken = TokenGenerator.Generate(refreshClaims, TimeSpan.FromDays(1));
         }
 
