@@ -12,11 +12,6 @@ public class PermissionDatabaseCatalogue : DatabaseCatalogue<PermissionModel, Pe
     protected override IQueryable<PermissionModel> QueryItems(IQueryable<PermissionModel> items, PermissionFilters filters)
     {
         if (filters.Clean ?? true) items = items.Where(x => x.Active);
-        if (filters.CredentialId != null)
-        {
-            var credentialIds = CredentialPermissions.Where(x => x.CredentialId == filters.CredentialId).Select(x => x.PermissionId).ToArray();
-            items = items.Where(x => credentialIds.Contains(x.Id));
-        }
         if (filters.Hint != null) items = items.Where(x => EF.Functions.Like(x.Code, $"%{filters.Hint}%"));
         return items;
     }

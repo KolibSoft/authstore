@@ -12,11 +12,6 @@ public class CredentialDatabaseCatalogue : DatabaseCatalogue<CredentialModel, Cr
     protected override IQueryable<CredentialModel> QueryItems(IQueryable<CredentialModel> items, CredentialFilters filters)
     {
         if (filters.Clean ?? true) items = items.Where(x => x.Active);
-        if (filters.PermissionId != null)
-        {
-            var credentialIds = CredentialPermissions.Where(x => x.PermissionId == filters.PermissionId).Select(x => x.CredentialId).ToArray();
-            items = items.Where(x => credentialIds.Contains(x.Id));
-        }
         if (filters.Hint != null) items = items.Where(x => EF.Functions.Like(x.Identity, $"%{filters.Hint}%"));
         return items;
     }
