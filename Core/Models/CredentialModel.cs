@@ -16,11 +16,23 @@ public class CredentialModel : IItem, IValidatable, IUpdatable<CredentialModel>
     {
         Identity = Identity.Trim();
         Key = Key.Trim();
-        var invalid = false;
-        if (invalid = (Id == Guid.Empty)) errors?.Add(CatalogueStatics.InvalidId);
-        if (invalid = (Identity == string.Empty || Identity.Length < 8 || Identity.Length > 32)) errors?.Add(AuthStoreStatics.InvalidIdentity);
-        if (invalid = (Key == string.Empty || Key.Length != 64)) errors?.Add(AuthStoreStatics.InvalidKey);
-        return !invalid;
+        var valid = true;
+        if (Id == Guid.Empty)
+        {
+            errors?.Add(CatalogueStatics.InvalidId);
+            valid = false;
+        }
+        if (Identity == string.Empty || Identity.Length < 8 || Identity.Length > 32)
+        {
+            errors?.Add(AuthStoreStatics.InvalidIdentity);
+            valid = false;
+        }
+        if (Key == string.Empty || Key.Length != 64)
+        {
+            errors?.Add(AuthStoreStatics.InvalidKey);
+            valid = false;
+        }
+        return valid;
     }
 
     public void Update(CredentialModel newState)

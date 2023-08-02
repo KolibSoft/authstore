@@ -27,6 +27,11 @@ public class AuthController : ControllerBase, IAuthConnector
     [Authorize(AuthStoreStatics.Refresher)]
     public virtual async Task<Result<AuthModel?>> RefreshAsync([FromRoute] Guid id, [FromHeader(Name = "Authorization")] string refreshToken)
     {
+        if (!User.HasClaim(AuthStoreStatics.Id, id.ToString()))
+        {
+            Response.StatusCode = StatusCodes.Status403Forbidden;
+            return new string[] { CatalogueStatics.InvalidId };
+        }
         refreshToken = refreshToken.Trim()[7..];
         var result = await AuthConnector.RefreshAsync(id, refreshToken);
         Response.StatusCode = result.Errors?.Any() == true ? StatusCodes.Status400BadRequest : StatusCodes.Status200OK;

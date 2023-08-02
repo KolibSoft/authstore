@@ -20,7 +20,20 @@ public static class DbContextUtils
             UpdatedAt = DateTime.UtcNow
         };
         credentials.Add(rootCredential);
-        var authStorePermissions = new PermissionModel[] { };
+        var authStorePermissions = new PermissionModel[] {
+            new PermissionModel() {
+                Id = Guid.NewGuid(),
+                Code = AuthStoreStatics.CredentialReader,
+                Active = true,
+                UpdatedAt = DateTime.UtcNow
+            },
+            new PermissionModel() {
+                Id = Guid.NewGuid(),
+                Code = AuthStoreStatics.CredentialManager,
+                Active = true,
+                UpdatedAt = DateTime.UtcNow
+            }
+        };
         permissions.AddRange(authStorePermissions);
         var rootPermissions = authStorePermissions.Select(x => new CredentialPermissionModel
         {

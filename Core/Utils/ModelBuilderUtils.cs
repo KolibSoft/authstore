@@ -17,6 +17,7 @@ public static class ModelBuilderUtils
             config.Property(x => x.Active).HasDefaultValue(true);
             config.Property(x => x.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP()");
             config.HasKey(x => x.Id);
+            config.HasIndex(x => x.Identity).IsUnique();
         });
         builder.Entity<PermissionModel>(config =>
         {
@@ -26,6 +27,7 @@ public static class ModelBuilderUtils
             config.Property(x => x.Active).HasDefaultValue(true);
             config.Property(x => x.UpdatedAt).HasDefaultValueSql("CURRENT_TIMESTAMP()");
             config.HasKey(x => x.Id);
+            config.HasIndex(x => x.Code).IsUnique();
         });
         builder.Entity<CredentialPermissionModel>(config =>
         {

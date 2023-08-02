@@ -8,6 +8,8 @@ public static class AuthStoreStatics
     public const string InvalidCode = "INVALID_CODE";
     public const string InvalidCredential = "INVALID_CREDENTIAL";
     public const string InvalidPermission = "INVALID_PERMISSION";
+    public const string RepeatedIdentity = "REPEATED_IDENTITY";
+    public const string UsedItem = "USED_ITEM";
 
     public const string Id = "id";
     public const string Permissions = "permissions";
@@ -19,5 +21,11 @@ public static class AuthStoreStatics
 
     public const string Permitted = "PERMITTED";
     public const string Denied = "DENIED";
+
+    public const string ReadCredential = "READ_CREDENTIAL";
+    public const string ManageCredential = "MANAGE_CREDENTIAL";
+
+    public const string CredentialReader = "Credential-Reader";
+    public const string CredentialManager = "Credential-Manager";
 
 }
