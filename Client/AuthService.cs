@@ -15,16 +15,16 @@ public class AuthService : IAuthConnector
 
     public virtual async Task<Result<AuthModel?>> AccessAsync(LoginModel login)
     {
-        var uri = $"{Uri}/access";
+        var uri = $"{Uri}";
         var response = await HttpClient.PostAsJsonAsync(uri, login);
         var result = await response.HandleResult<AuthModel?>();
         return result;
     }
 
-    public virtual async Task<Result<AuthModel?>> RefreshAsync(string refreshToken)
+    public virtual async Task<Result<AuthModel?>> RefreshAsync(Guid id, string refreshToken)
     {
-        var uri = $"{Uri}/refresh";
-        var request = new HttpRequestMessage(HttpMethod.Post, uri);
+        var uri = $"{Uri}/{id}";
+        var request = new HttpRequestMessage(HttpMethod.Put, uri);
         request.Headers.Authorization = new AuthenticationHeaderValue("bearer", refreshToken);
         var response = await HttpClient.SendAsync(request);
         var result = await response.HandleResult<AuthModel?>();

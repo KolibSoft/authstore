@@ -12,7 +12,7 @@ public class AuthController : ControllerBase, IAuthConnector
 
     public IAuthConnector AuthConnector { get; }
 
-    [HttpPost("access")]
+    [HttpPost]
     public virtual async Task<Result<AuthModel?>> AccessAsync([FromBody] LoginModel login)
     {
         login.Identity = login.Identity.Trim();
@@ -22,11 +22,11 @@ public class AuthController : ControllerBase, IAuthConnector
         return result;
     }
 
-    [HttpPost("refresh")]
-    public virtual async Task<Result<AuthModel?>> RefreshAsync([FromHeader(Name = "Authorization")] string refreshToken)
+    [HttpPut("{id}")]
+    public virtual async Task<Result<AuthModel?>> RefreshAsync([FromRoute] Guid id, [FromHeader(Name = "Authorization")] string refreshToken)
     {
         refreshToken = refreshToken.Trim()[7..];
-        var result = await AuthConnector.RefreshAsync(refreshToken);
+        var result = await AuthConnector.RefreshAsync(id, refreshToken);
         Response.StatusCode = result.Errors?.Any() == true ? StatusCodes.Status400BadRequest : StatusCodes.Status200OK;
         return result;
     }
