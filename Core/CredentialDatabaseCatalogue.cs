@@ -4,10 +4,22 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KolibSoft.AuthStore.Core;
 
-public class CredentialDatabaseCatalogue : DatabaseCatalogue<CredentialModel, CatalogueFilters>
+public class CredentialDatabaseCatalogue : DatabaseCatalogue<CredentialModel, CredentialFilters>
 {
 
     public DbSet<CredentialPermissionModel> CredentialPermissions { get; }
+
+    protected override IQueryable<CredentialModel> QueryItems(IQueryable<CredentialModel> items, CredentialFilters filters)
+    {
+        if (filters.Clean ?? true) items = items.Where(x => x.Active);
+        if (filters.PermissionId != null)
+        {
+            var credentialIds = CredentialPermissions.Where(x => x.PermissionId == filters.PermissionId).Select(x => x.CredentialId).ToArray();
+            items = items.Where(x => credentialIds.Contains(x.Id));
+        }
+        if (filters.Hint != null) items = items.Where(x => EF.Functions.Like(x.Identity, $"%{filters.Hint}%"));
+        return items;
+    }
 
     protected override bool ValidateInsert(CredentialModel item)
     {
@@ -39,7 +51,7 @@ public class CredentialDatabaseCatalogue : DatabaseCatalogue<CredentialModel, Ca
         return true;
     }
 
-    public override async Task<Result<Page<CredentialModel>?>> PageAsync(CatalogueFilters? filters = null)
+    public override async Task<Result<Page<CredentialModel>?>> PageAsync(CredentialFilters? filters = null)
     {
         var result = await base.PageAsync(filters);
         if (result.Data != null)

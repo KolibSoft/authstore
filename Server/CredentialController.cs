@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace KolibSoft.AuthStore.Server;
 
-public class CredentialController : CatalogueController<CredentialModel, CatalogueFilters>
+public class CredentialController : CatalogueController<CredentialModel, CredentialFilters>
 {
 
     [Authorize(AuthStoreStatics.CredentialReader)]
-    public override Task<Result<Page<CredentialModel>?>> PageAsync(CatalogueFilters? filters = null)
+    public override Task<Result<Page<CredentialModel>?>> PageAsync(CredentialFilters? filters = null)
     {
         return base.PageAsync(filters);
     }
@@ -43,6 +43,6 @@ public class CredentialController : CatalogueController<CredentialModel, Catalog
         return base.DeleteAsync(id);
     }
 
-    public CredentialController(ICatalogueConnector<CredentialModel, CatalogueFilters> catalogueConnector) : base(catalogueConnector) { }
+    public CredentialController(ICatalogueConnector<CredentialModel, CredentialFilters> catalogueConnector) : base(catalogueConnector) { }
 
 }
