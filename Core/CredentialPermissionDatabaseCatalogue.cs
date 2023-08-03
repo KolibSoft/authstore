@@ -12,7 +12,7 @@ public class CredentialPermissionDatabaseCatalogue : DatabaseCatalogue<Credentia
 
     protected override IQueryable<CredentialPermissionModel> QueryItems(IQueryable<CredentialPermissionModel> items, CredentialPermissionFilters filters)
     {
-        if (filters.Clean ?? true) items = items.Where(x => x.Active);
+        if (filters.Clean ?? true) items = items.Where(x => x.Active && Credentials.Any(xx => xx.Id == x.CredentialId && Permissions.Any(xx => xx.Id == x.PermissionId)));
         if (filters.CredentialId != null) items = items.Where(x => x.CredentialId == filters.CredentialId);
         if (filters.PermissionId != null) items = items.Where(x => x.PermissionId == filters.PermissionId);
         return items;
