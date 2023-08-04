@@ -1,7 +1,6 @@
 using KolibSoft.AuthStore.Core;
 using KolibSoft.AuthStore.Core.Models;
 using KolibSoft.Catalogue.Client;
-using KolibSoft.Catalogue.Core;
 
 namespace KolibSoft.AuthStore.Client;
 
