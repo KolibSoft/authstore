@@ -9,10 +9,11 @@ public class PermissionDatabaseCatalogue : DatabaseCatalogue<PermissionModel, Pe
 
     public DbSet<CredentialPermissionModel> CredentialPermissions { get; }
 
-    protected override IQueryable<PermissionModel> QueryItems(IQueryable<PermissionModel> items, PermissionFilters filters)
+    protected override IQueryable<PermissionModel> QueryItems(IQueryable<PermissionModel> items, PermissionFilters? filters = default)
     {
-        if (filters.Clean ?? true) items = items.Where(x => x.Active);
-        if (filters.Hint != null) items = items.Where(x => EF.Functions.Like(x.Code, $"%{filters.Hint}%"));
+        if (filters?.Clean ?? true) items = items.Where(x => x.Active);
+        if (filters?.Hint != null) items = items.Where(x => EF.Functions.Like(x.Code, $"%{filters.Hint}%"));
+        items = items.OrderBy(x => x.Code).OrderByDescending(x => x.Active);
         return items;
     }
 

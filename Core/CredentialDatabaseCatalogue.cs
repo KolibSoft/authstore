@@ -9,10 +9,11 @@ public class CredentialDatabaseCatalogue : DatabaseCatalogue<CredentialModel, Cr
 
     public DbSet<CredentialPermissionModel> CredentialPermissions { get; }
 
-    protected override IQueryable<CredentialModel> QueryItems(IQueryable<CredentialModel> items, CredentialFilters filters)
+    protected override IQueryable<CredentialModel> QueryItems(IQueryable<CredentialModel> items, CredentialFilters? filters = default)
     {
-        if (filters.Clean ?? true) items = items.Where(x => x.Active);
-        if (filters.Hint != null) items = items.Where(x => EF.Functions.Like(x.Identity, $"%{filters.Hint}%"));
+        if (filters?.Clean ?? true) items = items.Where(x => x.Active);
+        if (filters?.Hint != null) items = items.Where(x => EF.Functions.Like(x.Identity, $"%{filters.Hint}%"));
+        items = items.OrderBy(x => x.Identity).OrderByDescending(x => x.Active);
         return items;
     }
 
@@ -53,7 +54,7 @@ public class CredentialDatabaseCatalogue : DatabaseCatalogue<CredentialModel, Cr
         {
             result = new Page<CredentialModel>
             {
-                Items = result.Data.Items.Select(x => x.ToPublic()),
+                Items = result.Data.Items.Select(x => x.ToPublic()).ToArray(),
                 PageIndex = result.Data.PageIndex,
                 PageCount = result.Data.PageCount
             };
