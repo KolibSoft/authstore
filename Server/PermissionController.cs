@@ -25,12 +25,14 @@ public class PermissionController : CatalogueController<PermissionModel, Permiss
     [Authorize(AuthStoreStatics.PermissionManager)]
     public override Task<Result<Guid?>> InsertAsync(PermissionModel item)
     {
+        item.Code = item.Code.Trim();
         return base.InsertAsync(item);
     }
 
     [Authorize(AuthStoreStatics.PermissionManager)]
     public override Task<Result<bool?>> UpdateAsync(Guid id, PermissionModel item)
     {
+        item.Code = item.Code.Trim();
         return base.UpdateAsync(id, item);
     }
 

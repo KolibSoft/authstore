@@ -13,7 +13,6 @@ public class PermissionModel : IItem, IValidatable, IUpdatable<PermissionModel>
 
     public bool Validate(ICollection<string>? errors = default)
     {
-        Code = Code.Trim();
         var valid = true;
         if (Id == Guid.Empty)
         {

@@ -26,12 +26,16 @@ public class CredentialController : CatalogueController<CredentialModel, Credent
     [Authorize(AuthStoreStatics.CredentialManager)]
     public override Task<Result<Guid?>> InsertAsync(CredentialModel item)
     {
+        item.Identity = item.Identity.Trim();
+        item.Key = item.Key.Trim();
         return base.InsertAsync(item);
     }
 
     [Authorize(AuthStoreStatics.CredentialManager)]
     public override Task<Result<bool?>> UpdateAsync(Guid id, CredentialModel item)
     {
+        item.Identity = item.Identity.Trim();
+        item.Key = item.Key.Trim();
         return base.UpdateAsync(id, item);
     }
 

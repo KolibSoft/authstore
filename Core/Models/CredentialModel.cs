@@ -14,20 +14,18 @@ public class CredentialModel : IItem, IValidatable, IUpdatable<CredentialModel>
 
     public bool Validate(ICollection<string>? errors = default)
     {
-        Identity = Identity.Trim();
-        Key = Key.Trim();
         var valid = true;
         if (Id == Guid.Empty)
         {
             errors?.Add(CatalogueStatics.InvalidId);
             valid = false;
         }
-        if (Identity == string.Empty || Identity.Length < 8 || Identity.Length > 32)
+        if (Identity.Length > 32 || string.IsNullOrWhiteSpace(Identity))
         {
             errors?.Add(AuthStoreStatics.InvalidIdentity);
             valid = false;
         }
-        if (Key == string.Empty || Key.Length != 64)
+        if (Key.Length != 64 || string.IsNullOrWhiteSpace(Key))
         {
             errors?.Add(AuthStoreStatics.InvalidKey);
             valid = false;
@@ -47,7 +45,7 @@ public class CredentialModel : IItem, IValidatable, IUpdatable<CredentialModel>
     {
         Id = Id,
         Identity = Identity,
-        Key = "********",
+        Key = new string('*', 8),
         Active = Active,
         UpdatedAt = UpdatedAt
     };

@@ -77,13 +77,15 @@ public class CredentialDatabaseCatalogue : DatabaseCatalogue<CredentialModel, Cr
 
     public override Task<Result<Guid?>> InsertAsync(CredentialModel item)
     {
-        item.Key = item.Key.Trim().GetHashString();
+        if (IsPublic) item.Key = item.Key.GetHashString();
+        else item.Key = item.Key.PadRight(64);
         return base.InsertAsync(item);
     }
 
     public override Task<Result<bool?>> UpdateAsync(Guid id, CredentialModel item)
     {
-        item.Key = item.Key.Trim().GetHashString();
+        if (IsPublic) item.Key = item.Key.GetHashString();
+        else item.Key = item.Key.PadRight(64);
         return base.UpdateAsync(id, item);
     }
 
