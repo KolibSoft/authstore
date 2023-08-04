@@ -2,9 +2,8 @@ using System.Text;
 using KolibSoft.AuthStore.Core;
 using KolibSoft.AuthStore.Core.Utils;
 using KolibSoft.AuthStore.Server.Utils;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+using KolibSoft.AuthStore.Server.Example;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
 
 var secret = Encoding.UTF8.GetBytes("SECRET".GetHashString());
 

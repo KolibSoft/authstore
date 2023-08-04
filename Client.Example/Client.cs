@@ -4,6 +4,7 @@ using KolibSoft.Catalogue.Core;
 using KolibSoft.AuthStore.Core.Abstractions;
 using KolibSoft.AuthStore.Core;
 using KolibSoft.AuthStore.Core.Models;
+using KolibSoft.AuthStore.Core.Utils;
 
 namespace KolibSoft.AuthStore.Client.Example;
 
@@ -50,4 +51,30 @@ public class AuthStoreChanges
     public Dictionary<Guid, string[]?> Credentials { get; init; } = new();
     public Dictionary<Guid, string[]?> Permissions { get; init; } = new();
     public Dictionary<Guid, string[]?> CredentialPermissions { get; init; } = new();
+}
+
+public class AuthStoreContext : DbContext
+{
+
+    public DbSet<CredentialModel> Credentials { get; init; } = null!;
+    public DbSet<PermissionModel> Permissions { get; init; } = null!;
+    public DbSet<CredentialPermissionModel> CredentialPermissions { get; init; } = null!;
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder) => modelBuilder.BuildAuthStore();
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlite("Data Source=database.db");
+    }
+
+    public AuthStoreContext() : base()
+    {
+        if (Database.EnsureCreated()) this.CreateAuthStore();
+    }
+
+    public AuthStoreContext(DbContextOptions<AuthStoreContext> options) : base(options)
+    {
+        if (Database.EnsureCreated()) this.CreateAuthStore();
+    }
+
 }

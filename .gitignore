@@ -1,4 +1,8 @@
 *.http
+*.db
+*.db-shm
+*.db-wal
+*.json
 
 .vs
 .vscode
