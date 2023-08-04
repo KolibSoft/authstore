@@ -17,9 +17,16 @@ public class AuthStoreClient
     public AuthStoreChanges Changes { get; }
 
     public IAuthConnector Auth { get; }
-    public ICatalogueConnector<CredentialModel, CredentialFilters> Credentials { get; }
-    public ICatalogueConnector<PermissionModel, PermissionFilters> Permissions { get; }
-    public ICatalogueConnector<CredentialPermissionModel, CredentialPermissionFilters> CredentialPermissions { get; }
+    public ServiceCatalogue<CredentialModel, CredentialFilters> Credentials { get; }
+    public ServiceCatalogue<PermissionModel, PermissionFilters> Permissions { get; }
+    public ServiceCatalogue<CredentialPermissionModel, CredentialPermissionFilters> CredentialPermissions { get; }
+
+    public async Task Sync()
+    {
+        await Credentials.Sync();
+        await Permissions.Sync();
+        await CredentialPermissions.Sync();
+    }
 
     public AuthStoreClient(string uri, DbContext dbContext, AuthStoreChanges changes)
     {
@@ -28,7 +35,7 @@ public class AuthStoreClient
         Auth = new AuthService(HttpClient, $"{uri}/auth");
         Changes = changes;
         Credentials = new ServiceCatalogue<CredentialModel, CredentialFilters>(
-            new CredentialDatabaseCatalogue(dbContext),
+            new CredentialDatabaseCatalogue(dbContext) { IsPublic = false },
             new CredentialService(HttpClient, $"{Uri}/credential"),
             changes.Credentials
         );

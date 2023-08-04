@@ -15,9 +15,19 @@ try
         Key = "ROOT"
     });
     client.HttpClient.UseToken(auth.Data!.AccessToken);
+    await client.Sync();
 }
 catch { }
 
-var credentials = await client.Credentials.PageAsync();
+var page = await client.Credentials.PageAsync();
 
+/*
+var insert = await client.Credentials.InsertAsync(new()
+{
+    Identity = "USER_NEW",
+    Key = "USER_NEW"
+});
+*/
+
+File.WriteAllText("changes.json", JsonSerializer.Serialize(changes));
 _ = 0;

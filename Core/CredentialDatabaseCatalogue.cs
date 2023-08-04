@@ -1,4 +1,5 @@
 using KolibSoft.AuthStore.Core.Models;
+using KolibSoft.AuthStore.Core.Utils;
 using KolibSoft.Catalogue.Core;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,6 +9,8 @@ public class CredentialDatabaseCatalogue : DatabaseCatalogue<CredentialModel, Cr
 {
 
     public DbSet<CredentialPermissionModel> CredentialPermissions { get; }
+
+    public bool IsPublic { get; set; } = true;
 
     protected override IQueryable<CredentialModel> QueryItems(IQueryable<CredentialModel> items, CredentialFilters? filters = default)
     {
@@ -50,7 +53,7 @@ public class CredentialDatabaseCatalogue : DatabaseCatalogue<CredentialModel, Cr
     public override async Task<Result<Page<CredentialModel>?>> PageAsync(CredentialFilters? filters = null)
     {
         var result = await base.PageAsync(filters);
-        if (result.Data != null)
+        if (IsPublic && result.Data != null)
         {
             result = new Page<CredentialModel>
             {
@@ -65,11 +68,23 @@ public class CredentialDatabaseCatalogue : DatabaseCatalogue<CredentialModel, Cr
     public override async Task<Result<CredentialModel?>> GetAsync(Guid id)
     {
         var result = await base.GetAsync(id);
-        if (result.Data != null)
+        if (IsPublic && result.Data != null)
         {
             result = result.Data.ToPublic();
         }
         return result;
+    }
+
+    public override Task<Result<Guid?>> InsertAsync(CredentialModel item)
+    {
+        item.Key = item.Key.Trim().GetHashString();
+        return base.InsertAsync(item);
+    }
+
+    public override Task<Result<bool?>> UpdateAsync(Guid id, CredentialModel item)
+    {
+        item.Key = item.Key.Trim().GetHashString();
+        return base.UpdateAsync(id, item);
     }
 
     public CredentialDatabaseCatalogue(DbContext dbContext) : base(dbContext)
