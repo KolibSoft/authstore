@@ -1,0 +1,7 @@
+class AuthStoreClient {
+
+}
+
+export {
+    AuthStoreClient
+}

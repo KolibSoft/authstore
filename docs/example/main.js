@@ -1,3 +1,9 @@
 import { Catalogue } from "../lib/modules/catalogue.js";
 
-console.log(Catalogue);
+async function fetchHandler(uri, request) {
+    return await fetch(uri, request);
+}
+
+let uri = "http://localhost:5177";
+
+
