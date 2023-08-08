@@ -74,14 +74,7 @@ public class AuthStoreContext : DbContext
         optionsBuilder.UseSqlite("Data Source=database.db");
     }
 
-    public AuthStoreContext() : base()
-    {
-        if (Database.EnsureCreated()) this.CreateAuthStore();
-    }
-
-    public AuthStoreContext(DbContextOptions<AuthStoreContext> options) : base(options)
-    {
-        if (Database.EnsureCreated()) this.CreateAuthStore();
-    }
+    public AuthStoreContext() : base() { }
+    public AuthStoreContext(DbContextOptions<AuthStoreContext> options) : base(options) { }
 
 }
