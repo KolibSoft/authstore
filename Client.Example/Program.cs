@@ -7,17 +7,18 @@ var context = new AuthStoreContext();
 var changes = File.Exists("changes.json") ? JsonSerializer.Deserialize<AuthStoreChanges>(File.ReadAllText("changes.json")) ?? new() : new();
 
 var client = new AuthStoreClient(uri, context, changes);
-try
-{
-    var auth = await client.Auth.AccessAsync(new()
+if (client.Auth.Available)
+    try
     {
-        Identity = "ROOT",
-        Key = "ROOT"
-    });
-    client.HttpClient.UseToken(auth.Data!.AccessToken);
-    await client.Sync();
-}
-catch { }
+        var auth = await client.Auth.AccessAsync(new()
+        {
+            Identity = "ROOT",
+            Key = "ROOT"
+        });
+        client.HttpClient.UseToken(auth.Data!.AccessToken);
+        await client.Sync();
+    }
+    catch { }
 
 var page = await client.Credentials.PageAsync();
 

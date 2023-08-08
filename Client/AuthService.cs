@@ -1,5 +1,6 @@
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Net.NetworkInformation;
 using KolibSoft.AuthStore.Core;
 using KolibSoft.AuthStore.Core.Abstractions;
 using KolibSoft.Catalogue.Core;
@@ -12,6 +13,8 @@ public class AuthService : IAuthConnector
 
     public HttpClient HttpClient { get; }
     public string Uri { get; }
+
+    public virtual bool Available => NetworkInterface.GetAllNetworkInterfaces().Any(x => x.OperationalStatus == OperationalStatus.Up && x.NetworkInterfaceType != NetworkInterfaceType.Loopback);
 
     public virtual async Task<Result<AuthModel?>> AccessAsync(LoginModel login)
     {

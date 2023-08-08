@@ -16,6 +16,8 @@ public class DatabaseAuth : IAuthConnector
     public ITokenGenerator TokenGenerator { get; }
     public ICollection<string> Errors { get; } = new List<string>();
 
+    public virtual bool Available => DbContext.Database.CanConnect();
+
     protected virtual AuthModel Login(CredentialModel credential, string? refreshToken)
     {
         var permissionIds = CredentialPermissions.Where(x => x.CredentialId == credential.Id).Select(x => x.PermissionId).ToArray();

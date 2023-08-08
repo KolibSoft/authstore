@@ -13,6 +13,8 @@ public class AuthController : ControllerBase, IAuthConnector
 
     public IAuthConnector AuthConnector { get; }
 
+    public virtual bool Available => AuthConnector.Available;
+
     [HttpPost]
     public virtual async Task<Result<AuthModel?>> AccessAsync([FromBody] LoginModel login)
     {
