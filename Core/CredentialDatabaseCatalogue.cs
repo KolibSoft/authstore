@@ -50,45 +50,6 @@ public class CredentialDatabaseCatalogue : DatabaseCatalogue<CredentialModel, Cr
         return true;
     }
 
-    public override async Task<Result<Page<CredentialModel>?>> PageAsync(CredentialFilters? filters = null)
-    {
-        var result = await base.PageAsync(filters);
-        if (IsPublic && result.Data != null)
-        {
-            result = new Page<CredentialModel>
-            {
-                Items = result.Data.Items.Select(x => x.ToPublic()).ToArray(),
-                PageIndex = result.Data.PageIndex,
-                PageCount = result.Data.PageCount
-            };
-        }
-        return result;
-    }
-
-    public override async Task<Result<CredentialModel?>> GetAsync(Guid id)
-    {
-        var result = await base.GetAsync(id);
-        if (IsPublic && result.Data != null)
-        {
-            result = result.Data.ToPublic();
-        }
-        return result;
-    }
-
-    public override Task<Result<Guid?>> InsertAsync(CredentialModel item)
-    {
-        if (IsPublic) item.Key = item.Key.GetHashString();
-        else item.Key = item.Key.PadRight(64);
-        return base.InsertAsync(item);
-    }
-
-    public override Task<Result<bool?>> UpdateAsync(Guid id, CredentialModel item)
-    {
-        if (IsPublic) item.Key = item.Key.GetHashString();
-        else item.Key = item.Key.PadRight(64);
-        return base.UpdateAsync(id, item);
-    }
-
     public CredentialDatabaseCatalogue(DbContext dbContext) : base(dbContext)
     {
         CredentialPermissions = dbContext.Set<CredentialPermissionModel>();

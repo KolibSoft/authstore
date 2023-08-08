@@ -12,22 +12,31 @@ public class CredentialController : CatalogueController<CredentialModel, Credent
 {
 
     [Authorize(AuthStoreStatics.CredentialReader)]
-    public override Task<Result<Page<CredentialModel>?>> PageAsync(CredentialFilters? filters = null)
+    public override async Task<Result<Page<CredentialModel>?>> PageAsync(CredentialFilters? filters = null)
     {
-        return base.PageAsync(filters);
+        var result = await base.PageAsync(filters);
+        if (result.Data != null) result = new Page<CredentialModel>
+        {
+            Items = result.Data.Items.Select(x => x.ToPublic()).ToArray(),
+            PageIndex = result.Data.PageIndex,
+            PageCount = result.Data.PageCount
+        };
+        return result;
     }
 
     [Authorize(AuthStoreStatics.CredentialReader)]
-    public override Task<Result<CredentialModel?>> GetAsync(Guid id)
+    public override async Task<Result<CredentialModel?>> GetAsync(Guid id)
     {
-        return base.GetAsync(id);
+        var result = await base.GetAsync(id);
+        if (result.Data != null) result = result.Data.ToPublic();
+        return result;
     }
 
     [Authorize(AuthStoreStatics.CredentialManager)]
     public override Task<Result<Guid?>> InsertAsync(CredentialModel item)
     {
         item.Identity = item.Identity.Trim();
-        item.Key = item.Key.Trim();
+        item.Key = item.Key.Trim().GetHashString();
         return base.InsertAsync(item);
     }
 
@@ -35,7 +44,7 @@ public class CredentialController : CatalogueController<CredentialModel, Credent
     public override Task<Result<bool?>> UpdateAsync(Guid id, CredentialModel item)
     {
         item.Identity = item.Identity.Trim();
-        item.Key = item.Key.Trim();
+        item.Key = item.Key.Trim().GetHashString();
         return base.UpdateAsync(id, item);
     }
 

@@ -13,7 +13,7 @@ public static class ModelBuilderUtils
             config.ToTable("credential");
             config.Property(x => x.Id);
             config.Property(x => x.Identity).HasMaxLength(32);
-            config.Property(x => x.Key).HasMaxLength(64).IsFixedLength();
+            config.Property(x => x.Key).HasMaxLength(64);
             config.Property(x => x.Active).HasDefaultValue(true);
             config.Property(x => x.UpdatedAt);
             config.HasKey(x => x.Id);

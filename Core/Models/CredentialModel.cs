@@ -25,7 +25,7 @@ public class CredentialModel : IItem, IValidatable, IUpdatable<CredentialModel>
             errors?.Add(AuthStoreStatics.InvalidIdentity);
             valid = false;
         }
-        if (Key.Length != 64 || string.IsNullOrWhiteSpace(Key))
+        if (Key.Length > 64 || string.IsNullOrWhiteSpace(Key))
         {
             errors?.Add(AuthStoreStatics.InvalidKey);
             valid = false;
