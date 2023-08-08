@@ -3,22 +3,26 @@ using KolibSoft.AuthStore.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using KolibSoft.AuthStore.Core.Utils;
+using Microsoft.AspNetCore.Cors;
 
 namespace KolibSoft.AuthStore.Server.Example;
 
 [Route("auth")]
+[EnableCors("Allow-All")]
 public class TestAuthController : AuthController
 {
     public TestAuthController(AuthStoreContext context, TokenGenerator generator) : base(new DatabaseAuth(context, generator)) { }
 }
 
 [Route("credential")]
+[EnableCors("Allow-All")]
 public class TestCredentialController : CredentialController
 {
     public TestCredentialController(AuthStoreContext context) : base(new CredentialDatabaseCatalogue(context)) { }
 }
 
 [Route("permission")]
+[EnableCors("Allow-All")]
 public class TestPermissionController : PermissionController
 {
     public TestPermissionController(AuthStoreContext context) : base(new PermissionDatabaseCatalogue(context)) { }
@@ -26,6 +30,7 @@ public class TestPermissionController : PermissionController
 
 [Route("credential-permission")]
 [Route("permission-credential")]
+[EnableCors("Allow-All")]
 public class TestCredentialPermissionController : CredentialPermissionController
 {
     public TestCredentialPermissionController(AuthStoreContext context) : base(new CredentialPermissionDatabaseCatalogue(context)) { }
