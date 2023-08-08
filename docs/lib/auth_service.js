@@ -22,7 +22,7 @@ class AuthService {
      */
     async accesAsync(login) {
         let uri = `${this.uri}`;
-        let response = await fetch(uri, {
+        let response = await this.fetch(uri, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -40,7 +40,7 @@ class AuthService {
      */
     async refreshAsync(id, refreshToken) {
         let uri = `${this.uri}/${id}`;
-        let response = await fetch(uri, {
+        let response = await this.fetch(uri, {
             method: "GET",
             headers: {
                 "Authorization": `bearer ${refreshToken}`
