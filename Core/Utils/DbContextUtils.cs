@@ -23,37 +23,37 @@ public static class DbContextUtils
         var authStorePermissions = new PermissionModel[] {
             new PermissionModel() {
                 Id = Guid.NewGuid(),
-                Code = AuthStoreStatics.CredentialReader,
+                Code = AuthStoreStatics.ReadCredential,
                 Active = true,
                 UpdatedAt = DateTime.UtcNow
             },
             new PermissionModel() {
                 Id = Guid.NewGuid(),
-                Code = AuthStoreStatics.CredentialManager,
+                Code = AuthStoreStatics.ManageCredential,
                 Active = true,
                 UpdatedAt = DateTime.UtcNow
             },
             new PermissionModel() {
                 Id = Guid.NewGuid(),
-                Code = AuthStoreStatics.PermissionReader,
+                Code = AuthStoreStatics.ReadPermission,
                 Active = true,
                 UpdatedAt = DateTime.UtcNow
             },
             new PermissionModel() {
                 Id = Guid.NewGuid(),
-                Code = AuthStoreStatics.PermissionManager,
+                Code = AuthStoreStatics.ManagePermission,
                 Active = true,
                 UpdatedAt = DateTime.UtcNow
             },
             new PermissionModel() {
                 Id = Guid.NewGuid(),
-                Code = AuthStoreStatics.CredentialPermissionReader,
+                Code = AuthStoreStatics.ReadCredentialPermission,
                 Active = true,
                 UpdatedAt = DateTime.UtcNow
             },
             new PermissionModel() {
                 Id = Guid.NewGuid(),
-                Code = AuthStoreStatics.CredentialPermissionManager,
+                Code = AuthStoreStatics.ManageCredentialPermission,
                 Active = true,
                 UpdatedAt = DateTime.UtcNow
             }
