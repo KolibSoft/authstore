@@ -12,7 +12,9 @@ public class CredentialPermissionDatabaseCatalogue : DatabaseCatalogue<Credentia
 
     protected override IQueryable<CredentialPermissionModel> QueryItems(IQueryable<CredentialPermissionModel> items, CredentialPermissionFilters? filters = default)
     {
-        if (filters?.Clean ?? true) items = items.Where(x => x.Active && Credentials.Any(xx => xx.Id == x.CredentialId && Permissions.Any(xx => xx.Id == x.PermissionId)));
+        if (filters?.Clean ?? true) items = items.Where(x => x.Active);
+        if (filters?.CredentialId != null) items = items.Where(x => x.CredentialId == filters.CredentialId);
+        if (filters?.PermissionId != null) items = items.Where(x => x.PermissionId == filters.PermissionId);
         items = items.OrderByDescending(x => x.Active);
         return items;
     }
@@ -21,17 +23,17 @@ public class CredentialPermissionDatabaseCatalogue : DatabaseCatalogue<Credentia
     {
         if (!Credentials.Any(x => x.Id == item.CredentialId))
         {
-            Errors?.Add(AuthStoreStatics.InvalidCredential);
+            Errors.Add(AuthStoreStatics.InvalidCredential);
             return false;
         }
         if (!Permissions.Any(x => x.Id == item.PermissionId))
         {
-            Errors?.Add(AuthStoreStatics.InvalidPermission);
+            Errors.Add(AuthStoreStatics.InvalidPermission);
             return false;
         }
         if (DbSet.Any(x => x.CredentialId == item.CredentialId && x.PermissionId == item.PermissionId))
         {
-            Errors?.Add(CatalogueStatics.RepeatedItem);
+            Errors.Add(CatalogueStatics.RepeatedItem);
             return false;
         }
         return true;
@@ -41,17 +43,17 @@ public class CredentialPermissionDatabaseCatalogue : DatabaseCatalogue<Credentia
     {
         if (!Credentials.Any(x => x.Id == item.CredentialId))
         {
-            Errors?.Add(AuthStoreStatics.InvalidCredential);
+            Errors.Add(AuthStoreStatics.InvalidCredential);
             return false;
         }
         if (!Permissions.Any(x => x.Id == item.PermissionId))
         {
-            Errors?.Add(AuthStoreStatics.InvalidPermission);
+            Errors.Add(AuthStoreStatics.InvalidPermission);
             return false;
         }
-        if (DbSet.Any(x => x.CredentialId == item.CredentialId && x.PermissionId == item.PermissionId))
+        if (DbSet.Any(x => x.CredentialId == item.CredentialId && x.PermissionId == item.PermissionId && x.Id != item.Id))
         {
-            Errors?.Add(CatalogueStatics.RepeatedItem);
+            Errors.Add(CatalogueStatics.RepeatedItem);
             return false;
         }
         return true;

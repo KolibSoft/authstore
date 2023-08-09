@@ -41,7 +41,7 @@ public class PermissionDatabaseCatalogue : DatabaseCatalogue<PermissionModel, Pe
     {
         if (CredentialPermissions.Any(x => x.PermissionId == item.Id))
         {
-            Errors?.Add(AuthStoreStatics.UsedItem);
+            Errors?.Add(CatalogueStatics.UsedItem);
             return false;
         }
         return true;

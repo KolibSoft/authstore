@@ -44,7 +44,7 @@ public class CredentialDatabaseCatalogue : DatabaseCatalogue<CredentialModel, Cr
     {
         if (CredentialPermissions.Any(x => x.CredentialId == item.Id))
         {
-            Errors.Add(AuthStoreStatics.UsedItem);
+            Errors.Add(CatalogueStatics.UsedItem);
             return false;
         }
         return true;

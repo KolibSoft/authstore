@@ -5,7 +5,9 @@ import {
     CatalogueService,
     DatabaseCatalogue,
     ServiceCatalogue,
-    DbContext
+    DbContext,
+    DbSet,
+    CatalogueFilters
 } from "https://kolibsoft.github.io/catalogue/lib/main.js";
 
 export {
@@ -15,5 +17,7 @@ export {
     CatalogueService,
     DatabaseCatalogue,
     ServiceCatalogue,
-    DbContext
+    DbContext,
+    DbSet,
+    CatalogueFilters
 }

@@ -10,7 +10,6 @@ public static class AuthStoreStatics
     public const string InvalidPermission = "INVALID_PERMISSION";
     public const string RepeatedIdentity = "REPEATED_IDENTITY";
     public const string RepeatedCode = "REPEATED_CODE";
-    public const string UsedItem = "USED_ITEM";
 
     public const string Id = "id";
     public const string Permissions = "permissions";
