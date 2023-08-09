@@ -1,6 +1,6 @@
-import { CatalogueStatics } from "../modules/catalogue.js";
+import { CatalogueStatics, Item } from "../modules/catalogue.js";
 
-class CredentialPermissionModel {
+class CredentialPermissionModel extends Item {
 
     /** @type {string} */
     credentialId;

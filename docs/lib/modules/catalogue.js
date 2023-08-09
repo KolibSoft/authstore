@@ -1,5 +1,6 @@
 import {
     Item,
+    Result,
     CatalogueStatics,
     CatalogueService,
     DatabaseCatalogue,
@@ -9,6 +10,7 @@ import {
 
 export {
     Item,
+    Result,
     CatalogueStatics,
     CatalogueService,
     DatabaseCatalogue,

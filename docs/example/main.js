@@ -1,5 +1,4 @@
 import { AuthService } from "../lib/auth_service.js";
-import { Catalogue } from "../lib/modules/catalogue.js";
 import { AuthStoreClient, AuthStoreContext } from "./client.js";
 
 let accessToken = null;
@@ -18,12 +17,14 @@ let changes = JSON.parse(localStorage.changes ?? "{}");
 let client = new AuthStoreClient(serviceFetch, uri, context, changes);
 console.log(client);
 
-if (client.auth.available) 
+if (client.auth.available)
     try {
         let auth = await client.auth.accesAsync({ identity: "ROOT", key: "ROOT" });
         accessToken = auth.data.accessToken;
         await client.sync();
     } catch { }
+
+console.log(await client.credentials.pageAsync());
 
 // let credential = await client.credentials.insertAsync({ identity: "USER_NEW2" });
 
