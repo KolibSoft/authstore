@@ -9,7 +9,7 @@
   <PropertyGroup>
     <PackageId>KolibSoft.AuthStore.Server</PackageId>
     <AssemblyName>KolibSoft.AuthStore.Server</AssemblyName>
-    <PackageVersion>3.0.0-a</PackageVersion>
+    <PackageVersion>3.0.0</PackageVersion>
     <Authors>Kolib Software</Authors>
     <Copyright>Kolib Software</Copyright>
     <RepositoryUrl>https://github.com/KolibSoft/authstore</RepositoryUrl>
