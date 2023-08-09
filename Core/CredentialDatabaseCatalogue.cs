@@ -10,8 +10,6 @@ public class CredentialDatabaseCatalogue : DatabaseCatalogue<CredentialModel, Cr
 
     public DbSet<CredentialPermissionModel> CredentialPermissions { get; }
 
-    public bool IsPublic { get; set; } = true;
-
     protected override Task<IQueryable<CredentialModel>> QueryItems(IQueryable<CredentialModel> items, CredentialFilters? filters = default) => Task.Run<IQueryable<CredentialModel>>(() =>
     {
         if (filters?.Clean ?? true) items = items.Where(x => x.Active);

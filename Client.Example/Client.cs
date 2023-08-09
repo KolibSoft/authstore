@@ -35,7 +35,7 @@ public class AuthStoreClient
         Auth = new AuthService(HttpClient, $"{uri}/auth");
         Changes = changes;
         Credentials = new ServiceCatalogue<CredentialModel, CredentialFilters>(
-            new CredentialDatabaseCatalogue(dbContext) { IsPublic = false },
+            new CredentialDatabaseCatalogue(dbContext),
             new CredentialService(HttpClient, $"{Uri}/credential"),
             changes.Credentials
         );
