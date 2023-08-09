@@ -1,7 +1,6 @@
-class CredentialPermissionModel {
+import { CatalogueStatics } from "../modules/catalogue.js";
 
-    /** @type {string} */
-    id;
+class CredentialPermissionModel {
 
     /** @type {string} */
     credentialId;
@@ -12,15 +11,11 @@ class CredentialPermissionModel {
     /** @type {boolean} */
     active;
 
-    /** @type {Date} */
-    updatedAt;
-
     constructor(json) {
-        this.id = json?.id ?? crypto.randomUUID();
-        this.credentialId = json?.credentialId ?? "00000000-0000-0000-0000-000000000000";
-        this.permissionId = json?.permissionId ?? "00000000-0000-0000-0000-000000000000";
+        super(json);
+        this.credentialId = json?.credentialId ?? CatalogueStatics.NoGuid;
+        this.permissionId = json?.permissionId ?? CatalogueStatics.NoGuid;
         this.active = json?.active ?? true;
-        this.updatedAt = new Date(json?.updatedAt ?? new Date());
     }
 
 }

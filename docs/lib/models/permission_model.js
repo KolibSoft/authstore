@@ -1,7 +1,6 @@
-class PermissionlModel {
+import { Item } from "../modules/catalogue.js";
 
-    /** @type {string} */
-    id;
+class PermissionModel extends Item{
 
     /** @type {string} */
     code;
@@ -9,18 +8,13 @@ class PermissionlModel {
     /** @type {boolean} */
     active;
 
-    /** @type {Date} */
-    updatedAt;
-
     constructor(json) {
-        this.id = json?.id ?? crypto.randomUUID();
         this.code = json?.code ?? "";
         this.active = json?.active ?? true;
-        this.updatedAt = new Date(json?.updatedAt ?? new Date());
     }
 
 }
 
 export {
-    PermissionlModel
+    PermissionModel
 }

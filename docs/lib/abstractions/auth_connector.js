@@ -1,6 +1,6 @@
 import { LoginModel } from "../models/login_model.js";
 import { AuthModel } from "../models/auth_model.js";
-import { Catalogue } from "../modules/catalogue.js";
+import { Result } from "../modules/catalogue.js";
 
 /**
  * @interface
@@ -12,14 +12,14 @@ class AuthConnector {
 
     /**
      * @param {LoginModel} login 
-     * @returns {Promise<Catalogue.Result<AuthModel>>}
+     * @returns {Promise<Result<AuthModel>>}
      */
     accesAsync(login) { return new Error("Not implemented"); }
 
     /**
      * @param {string} id 
      * @param {string} refreshToken 
-     * @returns {Promise<Catalogue.Result<AuthModel>>}
+     * @returns {Promise<Result<AuthModel>>}
      */
     refreshAsync(id, refreshToken) { return new Error("Not implemented"); }
 

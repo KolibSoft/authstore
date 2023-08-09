@@ -6,7 +6,7 @@ import { AuthModel } from "./models/auth_model.js";
 import { CredentialModel } from "./models/credential_model.js";
 import { CredentialPermissionModel } from "./models/credential_permission_model.js";
 import { LoginModel } from "./models/login_model.js";
-import { PermissionlModel } from "./models/permission_model.js";
+import { PermissionModel } from "./models/permission_model.js";
 import { Catalogue } from "./modules/catalogue.js";
 import { PermissionService } from "./permission_service.js";
 import { IDBUtils } from "./utils/idb_utils.js";
@@ -19,7 +19,7 @@ export {
     CredentialPermissionService,
     AuthConnector,
     CredentialModel,
-    PermissionlModel,
+    PermissionModel,
     CredentialPermissionModel,
     LoginModel,
     AuthModel,

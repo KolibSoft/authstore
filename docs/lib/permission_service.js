@@ -1,9 +1,17 @@
-import { Catalogue } from "./modules/catalogue.js"
+import { PermissionModel } from "./models/permission_model.js";
+import { CatalogueService } from "./modules/catalogue.js"
 
-class PermissionService extends Catalogue.CatalogueService {
-    constructor(fetch, uri) {
-        super(fetch, uri);
+class PermissionService extends CatalogueService {
+
+    /**
+     * @param {(json: {}) => PermissionModel} creator 
+     * @param {(input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>} fetch 
+     * @param {string} uri 
+     */
+    constructor(creator, fetch, uri) {
+        super(creator, fetch, uri);
     }
+
 }
 
 export {

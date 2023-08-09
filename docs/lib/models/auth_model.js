@@ -1,12 +1,12 @@
 import { CredentialModel } from "./credential_model.js";
-import { PermissionlModel } from "./permission_model.js";
+import { PermissionModel } from "./permission_model.js";
 
 class AuthModel {
 
     /** @type {CredentialModel} */
     credential;
 
-    /** @type {PermissionlModel[]} */
+    /** @type {PermissionModel[]} */
     permissions;
 
     /** @type {string} */

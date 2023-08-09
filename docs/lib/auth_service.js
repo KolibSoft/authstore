@@ -1,6 +1,6 @@
 import { AuthConnector } from "./abstractions/auth_connector.js";
-import { Catalogue } from "./modules/catalogue.js";
-
+import { AuthModel } from "./models/auth_model.js";
+import { Result } from "./modules/catalogue.js";
 
 /**
  * @implements {AuthConnector}
@@ -18,7 +18,7 @@ class AuthService {
 
     /**
      * @param {LoginModel} login 
-     * @returns {Promise<Catalogue.Result<AuthModel>>}
+     * @returns {Promise<Result<AuthModel>>}
      */
     async accesAsync(login) {
         let uri = `${this.uri}`;
@@ -30,13 +30,14 @@ class AuthService {
             body: JSON.stringify(login)
         });
         let result = await Catalogue.ResultUtils.handleResult(response);
+        if (result.data) result.data = new AuthModel(result.data);
         return result;
     }
 
     /**
      * @param {string} id 
      * @param {string} refreshToken 
-     * @returns {Promise<Catalogue.Result<AuthModel>>}
+     * @returns {Promise<Result<AuthModel>>}
      */
     async refreshAsync(id, refreshToken) {
         let uri = `${this.uri}/${id}`;
@@ -47,6 +48,7 @@ class AuthService {
             }
         });
         let result = await Catalogue.ResultUtils.handleResult(response);
+        if (result.data) result.data = new AuthModel(result.data);
         return result;
     }
 

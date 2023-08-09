@@ -1,7 +1,6 @@
-class CredentialModel {
+import { Item } from "../modules/catalogue.js";
 
-    /** @type {string} */
-    id;
+class CredentialModel extends Item {
 
     /** @type {string} */
     identity;
@@ -12,15 +11,11 @@ class CredentialModel {
     /** @type {boolean} */
     active;
 
-    /** @type {Date} */
-    updatedAt;
-
     constructor(json) {
-        this.id = json?.id ?? crypto.randomUUID();
+        super(json);
         this.identity = json?.identity ?? "";
         this.key = json?.key ?? "";
         this.active = json?.active ?? true;
-        this.updatedAt = new Date(json?.updatedAt ?? new Date());
     }
 
 }
