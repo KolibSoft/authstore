@@ -21,6 +21,13 @@ public class AuthController : ControllerBase, IAuthConnector
         login.Identity = login.Identity.Trim();
         login.Key = login.Key.Trim().GetHashString();
         var result = await AuthConnector.AccessAsync(login);
+        if (result.Data != null) result = new AuthModel
+        {
+            Credential = result.Data.Credential.ToPublic(),
+            Permissions = result.Data.Permissions,
+            AccessToken = result.Data.AccessToken,
+            RefreshToken = result.Data.RefreshToken
+        };
         Response.StatusCode = result.Errors?.Any() == true ? StatusCodes.Status400BadRequest : StatusCodes.Status200OK;
         return result;
     }
@@ -36,6 +43,13 @@ public class AuthController : ControllerBase, IAuthConnector
         }
         refreshToken = refreshToken.Trim()[7..];
         var result = await AuthConnector.RefreshAsync(id, refreshToken);
+        if (result.Data != null) result = new AuthModel
+        {
+            Credential = result.Data.Credential.ToPublic(),
+            Permissions = result.Data.Permissions,
+            AccessToken = result.Data.AccessToken,
+            RefreshToken = result.Data.RefreshToken
+        };
         Response.StatusCode = result.Errors?.Any() == true ? StatusCodes.Status400BadRequest : StatusCodes.Status200OK;
         return result;
     }

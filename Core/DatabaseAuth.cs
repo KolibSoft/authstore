@@ -48,7 +48,7 @@ public class DatabaseAuth : IAuthConnector
 
         return new AuthModel
         {
-            Credential = credential.ToPublic(),
+            Credential = credential,
             Permissions = permissions,
             AccessToken = accessToken,
             RefreshToken = refreshToken
