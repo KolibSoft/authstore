@@ -18,6 +18,9 @@ public class DatabaseAuth : IAuthConnector
 
     public virtual bool Available => DbContext.Database.CanConnect();
 
+    public TimeSpan AccessTime { get; set; } = TimeSpan.FromMinutes(20);
+    public TimeSpan RefreshTime { get; set; } = TimeSpan.FromDays(1);
+
     protected virtual AuthModel Login(CredentialModel credential, string? refreshToken)
     {
         var permissionIds = CredentialPermissions.Where(x => x.CredentialId == credential.Id).Select(x => x.PermissionId).ToArray();
@@ -30,7 +33,7 @@ public class DatabaseAuth : IAuthConnector
             new Claim(AuthStoreStatics.Refresh, AuthStoreStatics.Denied)
         };
         accessClaims.AddRange(permissions.Select(x => new Claim(AuthStoreStatics.Permissions, x.Code)));
-        var accessToken = TokenGenerator.Generate(accessClaims, TimeSpan.FromMinutes(20));
+        var accessToken = TokenGenerator.Generate(accessClaims, AccessTime);
 
         if (refreshToken == null)
         {
@@ -40,7 +43,7 @@ public class DatabaseAuth : IAuthConnector
                 new Claim(AuthStoreStatics.Access, AuthStoreStatics.Denied),
                 new Claim(AuthStoreStatics.Refresh, AuthStoreStatics.Permitted)
             };
-            refreshToken = TokenGenerator.Generate(refreshClaims, TimeSpan.FromDays(1));
+            refreshToken = TokenGenerator.Generate(refreshClaims, RefreshTime);
         }
 
         return new AuthModel
