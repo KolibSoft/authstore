@@ -10,16 +10,16 @@ public class CredentialPermissionDatabaseCatalogue : DatabaseCatalogue<Credentia
     public DbSet<CredentialModel> Credentials { get; }
     public DbSet<PermissionModel> Permissions { get; }
 
-    protected override IQueryable<CredentialPermissionModel> QueryItems(IQueryable<CredentialPermissionModel> items, CredentialPermissionFilters? filters = default)
+    protected override Task<IQueryable<CredentialPermissionModel>> QueryItems(IQueryable<CredentialPermissionModel> items, CredentialPermissionFilters? filters = default) => Task.Run(() =>
     {
         if (filters?.Clean ?? true) items = items.Where(x => x.Active);
         if (filters?.CredentialId != null) items = items.Where(x => x.CredentialId == filters.CredentialId);
         if (filters?.PermissionId != null) items = items.Where(x => x.PermissionId == filters.PermissionId);
         items = items.OrderByDescending(x => x.Active);
         return items;
-    }
+    });
 
-    protected override bool ValidateInsert(CredentialPermissionModel item)
+    protected override Task<bool> ValidateInsert(CredentialPermissionModel item) => Task.Run(() =>
     {
         if (!Credentials.Any(x => x.Id == item.CredentialId))
         {
@@ -37,9 +37,9 @@ public class CredentialPermissionDatabaseCatalogue : DatabaseCatalogue<Credentia
             return false;
         }
         return true;
-    }
+    });
 
-    protected override bool ValidateUpdate(CredentialPermissionModel item)
+    protected override Task<bool> ValidateUpdate(CredentialPermissionModel item) => Task.Run(() =>
     {
         if (!Credentials.Any(x => x.Id == item.CredentialId))
         {
@@ -57,7 +57,7 @@ public class CredentialPermissionDatabaseCatalogue : DatabaseCatalogue<Credentia
             return false;
         }
         return true;
-    }
+    });
 
     public CredentialPermissionDatabaseCatalogue(DbContext dbContext) : base(dbContext)
     {

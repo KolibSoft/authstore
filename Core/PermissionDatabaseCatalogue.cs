@@ -9,15 +9,15 @@ public class PermissionDatabaseCatalogue : DatabaseCatalogue<PermissionModel, Pe
 
     public DbSet<CredentialPermissionModel> CredentialPermissions { get; }
 
-    protected override IQueryable<PermissionModel> QueryItems(IQueryable<PermissionModel> items, PermissionFilters? filters = default)
+    protected override Task<IQueryable<PermissionModel>> QueryItems(IQueryable<PermissionModel> items, PermissionFilters? filters = default) => Task.Run(() =>
     {
         if (filters?.Clean ?? true) items = items.Where(x => x.Active);
         if (filters?.Hint != null) items = items.Where(x => EF.Functions.Like(x.Code, $"%{filters.Hint}%"));
         items = items.OrderBy(x => x.Code).OrderByDescending(x => x.Active);
         return items;
-    }
+    });
 
-    protected override bool ValidateInsert(PermissionModel item)
+    protected override Task<bool> ValidateInsert(PermissionModel item) => Task.Run(() =>
     {
         if (DbSet.Any(x => x.Code == item.Code))
         {
@@ -25,9 +25,9 @@ public class PermissionDatabaseCatalogue : DatabaseCatalogue<PermissionModel, Pe
             return false;
         }
         return true;
-    }
+    });
 
-    protected override bool ValidateUpdate(PermissionModel item)
+    protected override Task<bool> ValidateUpdate(PermissionModel item) => Task.Run(() =>
     {
         if (DbSet.Any(x => x.Code == item.Code && x.Id != item.Id))
         {
@@ -35,9 +35,9 @@ public class PermissionDatabaseCatalogue : DatabaseCatalogue<PermissionModel, Pe
             return false;
         }
         return true;
-    }
+    });
 
-    protected override bool ValidateDelete(PermissionModel item)
+    protected override Task<bool> ValidateDelete(PermissionModel item) => Task.Run(() =>
     {
         if (CredentialPermissions.Any(x => x.PermissionId == item.Id))
         {
@@ -45,7 +45,7 @@ public class PermissionDatabaseCatalogue : DatabaseCatalogue<PermissionModel, Pe
             return false;
         }
         return true;
-    }
+    });
 
     public PermissionDatabaseCatalogue(DbContext dbContext) : base(dbContext)
     {

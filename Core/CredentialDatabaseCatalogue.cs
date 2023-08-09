@@ -12,15 +12,15 @@ public class CredentialDatabaseCatalogue : DatabaseCatalogue<CredentialModel, Cr
 
     public bool IsPublic { get; set; } = true;
 
-    protected override IQueryable<CredentialModel> QueryItems(IQueryable<CredentialModel> items, CredentialFilters? filters = default)
+    protected override Task<IQueryable<CredentialModel>> QueryItems(IQueryable<CredentialModel> items, CredentialFilters? filters = default) => Task.Run<IQueryable<CredentialModel>>(() =>
     {
         if (filters?.Clean ?? true) items = items.Where(x => x.Active);
         if (filters?.Hint != null) items = items.Where(x => EF.Functions.Like(x.Identity, $"%{filters.Hint}%"));
         items = items.OrderBy(x => x.Identity).OrderByDescending(x => x.Active);
         return items;
-    }
+    });
 
-    protected override bool ValidateInsert(CredentialModel item)
+    protected override Task<bool> ValidateInsert(CredentialModel item) => Task.Run(() =>
     {
         if (DbSet.Any(x => x.Identity == item.Identity))
         {
@@ -28,19 +28,21 @@ public class CredentialDatabaseCatalogue : DatabaseCatalogue<CredentialModel, Cr
             return false;
         }
         return true;
-    }
+    });
 
-    protected override bool ValidateUpdate(CredentialModel item)
+    protected override Task<bool> ValidateUpdate(CredentialModel item) => Task.Run(() =>
     {
-        if (DbSet.Any(x => x.Identity == item.Identity && x.Id != item.Id))
         {
-            Errors.Add(AuthStoreStatics.RepeatedIdentity);
-            return false;
+            if (DbSet.Any(x => x.Identity == item.Identity && x.Id != item.Id))
+            {
+                Errors.Add(AuthStoreStatics.RepeatedIdentity);
+                return false;
+            }
+            return true;
         }
-        return true;
-    }
+    });
 
-    protected override bool ValidateDelete(CredentialModel item)
+    protected override Task<bool> ValidateDelete(CredentialModel item) => Task.Run(() =>
     {
         if (CredentialPermissions.Any(x => x.CredentialId == item.Id))
         {
@@ -48,7 +50,7 @@ public class CredentialDatabaseCatalogue : DatabaseCatalogue<CredentialModel, Cr
             return false;
         }
         return true;
-    }
+    });
 
     public CredentialDatabaseCatalogue(DbContext dbContext) : base(dbContext)
     {
