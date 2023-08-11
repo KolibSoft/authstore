@@ -1,5 +1,5 @@
-import { PermissionModel } from "./models/permission_model.js";
-import { CatalogueService } from "./modules/catalogue.js"
+import { PermissionModel } from "../models/permission_model.js";
+import { CatalogueService } from "../modules/catalogue.js"
 
 class PermissionService extends CatalogueService {
 

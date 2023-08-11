@@ -1,6 +1,6 @@
-import { AuthConnector } from "./abstractions/auth_connector.js";
-import { AuthModel } from "./models/auth_model.js";
-import { Result } from "./modules/catalogue.js";
+import { AuthConnector } from "../abstractions/auth_connector.js";
+import { AuthModel } from "../models/auth_model.js";
+import { Result } from "../modules/catalogue.js";
 
 /**
  * @implements {AuthConnector}

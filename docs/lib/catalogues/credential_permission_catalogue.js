@@ -1,8 +1,8 @@
-import { CredentialModel } from "./models/credential_model.js";
-import { CredentialPermissionModel } from "./models/credential_permission_model.js";
-import { PermissionModel } from "./models/permission_model.js";
-import { CredentialPermissionFilters } from "./credential_permission_filters.js";
-import { CatalogueStatics, DatabaseCatalogue, DbContext, DbSet } from "./modules/catalogue.js";
+import { CredentialModel } from "../models/credential_model.js";
+import { CredentialPermissionModel } from "../models/credential_permission_model.js";
+import { PermissionModel } from "../models/permission_model.js";
+import { CredentialPermissionFilters } from "../filters/credential_permission_filters.js";
+import { CatalogueStatics, DatabaseCatalogue, DbContext, DbSet } from "../modules/catalogue.js";
 
 class CredentialPermissionDatabaseCatalogue extends DatabaseCatalogue {
 

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace KolibSoft.AuthStore.Server;
+namespace KolibSoft.AuthStore.Server.Controllers;
 
 public class AuthController : ControllerBase, IAuthConnector
 {

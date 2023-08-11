@@ -1,5 +1,5 @@
-import { CredentialModel } from "./models/credential_model.js";
-import { CatalogueService } from "./modules/catalogue.js"
+import { CredentialModel } from "../models/credential_model.js";
+import { CatalogueService } from "../modules/catalogue.js"
 
 class CredentialService extends CatalogueService {
 

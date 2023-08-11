@@ -7,7 +7,7 @@ using KolibSoft.Catalogue.Core.Abstractions;
 using KolibSoft.Catalogue.Server;
 using Microsoft.AspNetCore.Authorization;
 
-namespace KolibSoft.AuthStore.Server;
+namespace KolibSoft.AuthStore.Server.Controllers;
 
 public class CredentialController : CatalogueController<CredentialModel, CredentialFilters>
 {

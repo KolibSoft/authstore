@@ -5,6 +5,7 @@ using KolibSoft.AuthStore.Core.Models;
 using KolibSoft.AuthStore.Core.Utils;
 using KolibSoft.AuthStore.Core.Filters;
 using KolibSoft.AuthStore.Core.Catalogues;
+using KolibSoft.AuthStore.Client.Services;
 
 namespace KolibSoft.AuthStore.Client.Example;
 

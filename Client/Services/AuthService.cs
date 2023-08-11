@@ -6,7 +6,7 @@ using KolibSoft.AuthStore.Core.Abstractions;
 using KolibSoft.Catalogue.Core;
 using KolibSoft.Catalogue.Core.Utils;
 
-namespace KolibSoft.AuthStore.Client;
+namespace KolibSoft.AuthStore.Client.Services;
 
 public class AuthService : IAuthConnector
 {

@@ -1,4 +1,4 @@
-import { AuthService } from "../lib/auth_service.js";
+import { AuthService } from "../lib/main.js";
 import { AuthStoreClient, AuthStoreContext } from "./client.js";
 
 let accessToken = null;

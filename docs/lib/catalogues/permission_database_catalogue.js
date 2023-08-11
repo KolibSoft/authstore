@@ -1,8 +1,8 @@
-import { AuthStoreStatics } from "./authstore_statics.js";
-import { CredentialPermissionModel } from "./models/credential_permission_model.js";
-import { PermissionModel } from "./models/permission_model.js";
-import { CatalogueStatics, DatabaseCatalogue, DbContext, DbSet } from "./modules/catalogue.js";
-import { PermissionFilters } from "./permission_filters.js";
+import { AuthStoreStatics } from "../authstore_statics.js";
+import { CredentialPermissionModel } from "../models/credential_permission_model.js";
+import { PermissionModel } from "../models/permission_model.js";
+import { CatalogueStatics, DatabaseCatalogue, DbContext, DbSet } from "../modules/catalogue.js";
+import { PermissionFilters } from "../filters/permission_filters.js";
 
 class PermissionDatabaseCatalogue extends DatabaseCatalogue {
 

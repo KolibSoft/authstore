@@ -2,7 +2,7 @@ using KolibSoft.AuthStore.Core.Filters;
 using KolibSoft.AuthStore.Core.Models;
 using KolibSoft.Catalogue.Client;
 
-namespace KolibSoft.AuthStore.Client;
+namespace KolibSoft.AuthStore.Client.Services;
 
 public class PermissionService : CatalogueService<PermissionModel, PermissionFilters>
 {

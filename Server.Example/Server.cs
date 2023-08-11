@@ -2,6 +2,7 @@ using KolibSoft.AuthStore.Core;
 using KolibSoft.AuthStore.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using KolibSoft.AuthStore.Server.Controllers;
 using KolibSoft.AuthStore.Core.Utils;
 using KolibSoft.AuthStore.Core.Catalogues;
 using Microsoft.AspNetCore.Cors;

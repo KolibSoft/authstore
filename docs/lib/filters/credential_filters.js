@@ -1,4 +1,4 @@
-import { CatalogueFilters } from "./modules/catalogue.js";
+import { CatalogueFilters } from "../modules/catalogue.js";
 
 class CredentialFilters extends CatalogueFilters {
 

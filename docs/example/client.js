@@ -1,8 +1,4 @@
-import { AuthService } from "../lib/auth_service.js";
-import { CredentialService } from "../lib/credential_service.js";
-import { CredentialDatabaseCatalogue, CredentialPermissionDatabaseCatalogue, CredentialPermissionModel, PermissionDatabaseCatalogue } from "../lib/main.js";
-import { CredentialModel } from "../lib/models/credential_model.js";
-import { PermissionModel } from "../lib/models/permission_model.js";
+import { AuthService, CredentialService, CredentialModel, PermissionModel, CredentialDatabaseCatalogue, CredentialPermissionDatabaseCatalogue, CredentialPermissionModel, PermissionDatabaseCatalogue } from "../lib/main.js";
 import { DatabaseCatalogue, DbContext, ServiceCatalogue } from "../lib/modules/catalogue.js";
 
 class AuthStoreContext extends DbContext {
