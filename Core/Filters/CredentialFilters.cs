@@ -1,6 +1,6 @@
 using KolibSoft.Catalogue.Core;
 
-namespace KolibSoft.AuthStore.Core;
+namespace KolibSoft.AuthStore.Core.Filters;
 
 public class CredentialFilters : CatalogueFilters
 {

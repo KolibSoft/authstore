@@ -1,9 +1,10 @@
+using KolibSoft.AuthStore.Core.Filters;
 using KolibSoft.AuthStore.Core.Models;
-using KolibSoft.AuthStore.Core.Utils;
 using KolibSoft.Catalogue.Core;
+using KolibSoft.Catalogue.Core.Catalogues;
 using Microsoft.EntityFrameworkCore;
 
-namespace KolibSoft.AuthStore.Core;
+namespace KolibSoft.AuthStore.Core.Catalogues;
 
 public class CredentialDatabaseCatalogue : DatabaseCatalogue<CredentialModel, CredentialFilters>
 {

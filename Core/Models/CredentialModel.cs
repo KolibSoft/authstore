@@ -3,18 +3,16 @@ using KolibSoft.Catalogue.Core.Abstractions;
 
 namespace KolibSoft.AuthStore.Core.Models;
 
-public class CredentialModel : IItem, IValidatable, IUpdatable<CredentialModel>
+public class CredentialModel : Item, IUpdatable<CredentialModel>
 {
 
-    public Guid Id { get; set; } = Guid.NewGuid();
     public string Identity { get; set; } = string.Empty;
     public string Key { get; set; } = string.Empty;
     public bool Active { get; set; } = true;
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
-    public bool Validate(ICollection<string>? errors = default)
+    public override bool Validate(ICollection<string>? errors = default)
     {
-        var valid = true;
+        var valid = base.Validate(errors);
         if (Id == Guid.Empty)
         {
             errors?.Add(CatalogueStatics.InvalidId);

@@ -1,8 +1,10 @@
+using KolibSoft.AuthStore.Core.Filters;
 using KolibSoft.AuthStore.Core.Models;
 using KolibSoft.Catalogue.Core;
+using KolibSoft.Catalogue.Core.Catalogues;
 using Microsoft.EntityFrameworkCore;
 
-namespace KolibSoft.AuthStore.Core;
+namespace KolibSoft.AuthStore.Core.Catalogues;
 
 public class PermissionDatabaseCatalogue : DatabaseCatalogue<PermissionModel, PermissionFilters>
 {
