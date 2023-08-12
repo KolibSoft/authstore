@@ -1,6 +1,6 @@
 import { AuthConnector } from "../abstractions/auth_connector.js";
 import { AuthModel } from "../models/auth_model.js";
-import { Result } from "../modules/catalogue.js";
+import { Result, ResultUtils } from "../modules/catalogue.js";
 
 /**
  * @implements {AuthConnector}
@@ -29,7 +29,7 @@ class AuthService {
             },
             body: JSON.stringify(login)
         });
-        let result = await Catalogue.ResultUtils.handleResult(response);
+        let result = await ResultUtils.handleResult(response);
         if (result.data) result.data = new AuthModel(result.data);
         return result;
     }
@@ -47,7 +47,7 @@ class AuthService {
                 "Authorization": `bearer ${refreshToken}`
             }
         });
-        let result = await Catalogue.ResultUtils.handleResult(response);
+        let result = await ResultUtils.handleResult(response);
         if (result.data) result.data = new AuthModel(result.data);
         return result;
     }
