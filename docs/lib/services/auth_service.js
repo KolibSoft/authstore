@@ -20,7 +20,7 @@ class AuthService {
      * @param {LoginModel} login 
      * @returns {Promise<Result<AuthModel>>}
      */
-    async accesAsync(login) {
+    async accessAsync(login) {
         let uri = `${this.uri}`;
         let response = await this.fetch(uri, {
             method: "POST",

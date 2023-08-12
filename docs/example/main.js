@@ -19,7 +19,7 @@ console.log(client);
 
 if (client.auth.available)
     try {
-        let auth = await client.auth.accesAsync({ identity: "ROOT", key: "ROOT" });
+        let auth = await client.auth.accessAsync({ identity: "ROOT", key: "ROOT" });
         accessToken = auth.data.accessToken;
         await client.sync();
     } catch { }

@@ -14,7 +14,7 @@ class AuthConnector {
      * @param {LoginModel} login 
      * @returns {Promise<Result<AuthModel>>}
      */
-    accesAsync(login) { return new Error("Not implemented"); }
+    accessAsync(login) { return new Error("Not implemented"); }
 
     /**
      * @param {string} id 
