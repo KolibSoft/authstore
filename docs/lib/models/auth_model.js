@@ -1,3 +1,4 @@
+import { CatalogueStatics } from "../modules/catalogue.js";
 import { CredentialModel } from "./credential_model.js";
 import { PermissionModel } from "./permission_model.js";
 
@@ -16,7 +17,7 @@ class AuthModel {
     refreshToken;
 
     constructor(json) {
-        this.credential = json?.credential ?? new CredentialModel({ id: "00000000-0000-0000-0000-000000000000" });
+        this.credential = json?.credential ?? new CredentialModel({ id: CatalogueStatics.NoGuid });
         this.permissions = json?.permissions ?? [];
         this.accessToken = json?.accessToken ?? "";
         this.refreshToken = json?.refreshToken ?? "";
