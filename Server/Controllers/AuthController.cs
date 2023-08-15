@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace KolibSoft.AuthStore.Server.Controllers;
 
+[Route("_NO_ROUTE_")]
 public class AuthController : ControllerBase, IAuthConnector
 {
 

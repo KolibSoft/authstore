@@ -6,9 +6,11 @@ using KolibSoft.Catalogue.Core;
 using KolibSoft.Catalogue.Core.Abstractions;
 using KolibSoft.Catalogue.Server;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace KolibSoft.AuthStore.Server.Controllers;
 
+[Route("_NO_ROUTE_")]
 public class CredentialController : CatalogueController<CredentialModel, CredentialFilters>
 {
 

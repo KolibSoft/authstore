@@ -23,7 +23,7 @@ public class DatabaseAuth : IAuthConnector
 
     protected virtual AuthModel Login(CredentialModel credential, string? refreshToken)
     {
-        var permissionIds = CredentialPermissions.Where(x => x.CredentialId == credential.Id).Select(x => x.PermissionId).ToArray();
+        var permissionIds = CredentialPermissions.Where(x => x.CredentialId == credential.Id && x.Active).Select(x => x.PermissionId).ToArray();
         var permissions = Permissions.Where(x => permissionIds.Contains(x.Id)).ToArray();
 
         var accessClaims = new List<Claim>
