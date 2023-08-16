@@ -8,10 +8,16 @@ import { Result, ResultUtils } from "../modules/catalogue.js";
 class AuthService {
 
     /** @type {(input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>} */
-    fetch;
+    #fetch;
 
     /** @type {string} */
-    uri;
+    #uri;
+
+    /** @returns {(input: RequestInfo | URL, init?: RequestInit | undefined) => Promise<Response>} */
+    get fetch() { return this.#fetch; }
+
+    /** @returns {string} */
+    get uri() { return this.#uri; }
 
     /** @returns {boolean} */
     get available() { return navigator.onLine; }
@@ -21,8 +27,8 @@ class AuthService {
      * @returns {Promise<Result<AuthModel>>}
      */
     async accessAsync(login) {
-        let uri = `${this.uri}`;
-        let response = await this.fetch(uri, {
+        let uri = `${this.#uri}`;
+        let response = await this.#fetch(uri, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -40,8 +46,8 @@ class AuthService {
      * @returns {Promise<Result<AuthModel>>}
      */
     async refreshAsync(id, refreshToken) {
-        let uri = `${this.uri}/${id}`;
-        let response = await this.fetch(uri, {
+        let uri = `${this.#uri}/${id}`;
+        let response = await this.#fetch(uri, {
             method: "GET",
             headers: {
                 "Authorization": `bearer ${refreshToken}`
@@ -57,8 +63,8 @@ class AuthService {
      * @param {string} uri 
      */
     constructor(fetch, uri) {
-        this.fetch = fetch;
-        this.uri = uri;
+        this.#fetch = fetch;
+        this.#uri = uri;
     }
 
 }
