@@ -15,7 +15,7 @@ public static class ModelBuilderUtils
             config.Property(x => x.Identity).HasMaxLength(32);
             config.Property(x => x.Key).HasMaxLength(64);
             config.Property(x => x.Active).HasDefaultValue(true);
-            config.Property(x => x.UpdatedAt);
+            config.Property(x => x.UpdatedAt).HasConversion(x => x, x => DateTime.SpecifyKind(x, DateTimeKind.Utc));
             config.HasKey(x => x.Id);
             config.HasIndex(x => x.Identity).IsUnique();
         });
@@ -25,7 +25,7 @@ public static class ModelBuilderUtils
             config.Property(x => x.Id);
             config.Property(x => x.Code).HasMaxLength(32);
             config.Property(x => x.Active).HasDefaultValue(true);
-            config.Property(x => x.UpdatedAt);
+            config.Property(x => x.UpdatedAt).HasConversion(x => x, x => DateTime.SpecifyKind(x, DateTimeKind.Utc));
             config.HasKey(x => x.Id);
             config.HasIndex(x => x.Code).IsUnique();
         });
@@ -36,7 +36,7 @@ public static class ModelBuilderUtils
             config.Property(x => x.CredentialId);
             config.Property(x => x.PermissionId);
             config.Property(x => x.Active).HasDefaultValue(true);
-            config.Property(x => x.UpdatedAt);
+            config.Property(x => x.UpdatedAt).HasConversion(x => x, x => DateTime.SpecifyKind(x, DateTimeKind.Utc));
             config.HasKey(x => x.Id);
             config.HasOne<CredentialModel>().WithMany().HasForeignKey(x => x.CredentialId);
             config.HasOne<PermissionModel>().WithMany().HasForeignKey(x => x.PermissionId);
